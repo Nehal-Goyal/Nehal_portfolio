@@ -3,7 +3,6 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   BrainCircuit,
-  Camera,
   ChevronDown,
   CircleDot,
   Code2,
@@ -11,9 +10,12 @@ import {
   ExternalLink,
   Github,
   GraduationCap,
+  Mail,
   Menu,
+  Moon,
   Network,
   Sparkles,
+  Sun,
   Users,
   Wrench,
   X,
@@ -33,6 +35,7 @@ type Certificate = {
   short: string;
   description: string;
   seal: string;
+  url?: string;
 };
 
 const certificates: Certificate[] = [
@@ -105,9 +108,11 @@ function ResumeModal({ onClose }: { onClose: () => void }) {
         <button className="modal-close" onClick={onClose} aria-label="Close resume information" data-testid="button-close-resume"><X size={16} /></button>
         <div className="modal-seal">RESUME<br />READY</div>
         <div className="section-kicker">A small note</div>
-        <h2 id="resume-title">The resume is available.</h2>
-        <p>Nehal keeps the detailed academic and project record in a current resume. It can be shared directly when you are hiring, collaborating, or simply curious about the work behind this page.</p>
-        <button className="button button-primary" onClick={onClose} data-testid="button-close-resume-cta">Got it <ArrowUpRight size={15} /></button>
+        <h2 id="resume-title">Resume</h2>
+        <p>For a detailed view of Nehal’s education, experience, projects, and certifications, get in touch by email.</p>
+        <a className="button button-primary" href="mailto:nehalgoyal890@gmail.com?subject=Resume%20request" onClick={onClose} data-testid="link-request-resume">
+          Request resume <Mail size={15} />
+        </a>
       </div>
     </div>
   );
@@ -122,7 +127,11 @@ function CertificateModal({ certificate, onClose }: { certificate: Certificate; 
         <div className="section-kicker">{certificate.issuer}</div>
         <h2 id="certificate-title">{certificate.name}</h2>
         <p>{certificate.description}</p>
-        <p className="section-kicker">Credential gallery preview · no verification link published</p>
+        {certificate.url && (
+          <a className="button button-primary" href={certificate.url} target="_blank" rel="noreferrer">
+            Verify certificate <ExternalLink size={15} />
+          </a>
+        )}
       </div>
     </div>
   );
@@ -131,6 +140,9 @@ function CertificateModal({ certificate, onClose }: { certificate: Certificate; 
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [modal, setModal] = useState<{ kind: 'resume' } | { kind: 'certificate'; certificate: Certificate } | null>(null);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => (
+    window.localStorage.getItem('nehal-theme') === 'dark' ? 'dark' : 'light'
+  ));
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -140,13 +152,17 @@ function Home() {
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, []);
 
+  useEffect(() => {
+    window.localStorage.setItem('nehal-theme', theme);
+  }, [theme]);
+
   const jumpTo = (id: string) => {
     setMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <main className="site-shell">
+    <main className={`site-shell ${theme === 'dark' ? 'dark-theme' : ''}`}>
       <header className="site-nav">
         <a href="#top" className="brand" data-testid="link-home">
           <span className="brand-mark">N</span>
@@ -154,10 +170,15 @@ function Home() {
         </a>
         <nav className={`nav-links ${menuOpen ? 'open' : ''}`} aria-label="Primary navigation">
           <a href="#about" onClick={() => setMenuOpen(false)} data-testid="link-about">About</a>
-          <a href="#journey" onClick={() => setMenuOpen(false)} data-testid="link-journey">Journey</a>
-          <a href="#work" onClick={() => setMenuOpen(false)} data-testid="link-work">Work</a>
-          <a href="#credentials" onClick={() => setMenuOpen(false)} data-testid="link-credentials">Credentials</a>
+          <a href="#soft-skills" onClick={() => setMenuOpen(false)} data-testid="link-soft-skills">Soft skills</a>
+          <a href="#journey" onClick={() => setMenuOpen(false)} data-testid="link-experience">Experience</a>
+          <a href="#work" onClick={() => setMenuOpen(false)} data-testid="link-projects">Projects</a>
+          <a href="#credentials" onClick={() => setMenuOpen(false)} data-testid="link-certificates">Certificates</a>
+          <a href="#contact" onClick={() => setMenuOpen(false)} data-testid="link-contact">Contact</a>
         </nav>
+        <button className="theme-toggle" onClick={() => setTheme((current) => current === 'light' ? 'dark' : 'light')} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`} data-testid="button-theme-toggle">
+          {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
+        </button>
         <button className="nav-resume" onClick={() => setModal({ kind: 'resume' })} data-testid="button-open-resume">
           Resume <Download size={14} />
         </button>
@@ -170,24 +191,13 @@ function Home() {
         <div className="hero-grid">
           <ScrollReveal>
             <div className="eyebrow">Final-year CS student · Jaipur, India</div>
-            <h1 data-testid="text-hero-heading">Curious mind.<br /><span>AI ahead.</span></h1>
-            <p className="hero-lede">I’m Nehal — a Python-first computer science student at JECRC University, building a sharper understanding of how intelligent systems can meet the real world.</p>
+            <h1 data-testid="text-hero-heading">Nehal <span>Goyal.</span></h1>
+            <p className="hero-lede">Aspiring AI Engineer, building a sharper understanding of how intelligent systems can meet the real world.</p>
             <div className="hero-actions">
               <button className="button button-primary" onClick={() => jumpTo('work')} data-testid="button-explore-work">Explore the work <ArrowDownRight size={17} /></button>
-              <button className="button button-ghost" onClick={() => setModal({ kind: 'resume' })} data-testid="button-hero-resume">View resume note <Download size={16} /></button>
+              <button className="button button-ghost" onClick={() => setModal({ kind: 'resume' })} data-testid="button-hero-resume">Resume <Download size={16} /></button>
             </div>
-            <div className="hero-note"><CircleDot size={14} />Still learning, still shipping. The best work usually starts as a question worth staying with.</div>
-          </ScrollReveal>
-          <ScrollReveal delay="delay-2">
-            <div className="hero-art" aria-label="Abstract portrait of Nehal's creative and technical point of view">
-              <div className="orbit" />
-              <div className="scribble">build / observe / repeat</div>
-              <div className="art-card">
-                <div className="art-label">Field notes · 2025</div>
-                <div className="art-letters">NG</div>
-                <div className="art-foot">AI engineer in progress</div>
-              </div>
-            </div>
+            <div className="hero-note"><CircleDot size={14} />The goal is not to know everything. It is to stay attentive enough to find the right next thing to learn.</div>
           </ScrollReveal>
         </div>
         <div className="scroll-cue"><span /> Scroll to see the thinking</div>
@@ -203,49 +213,55 @@ function Home() {
 
       <section className="section" id="about">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="01 / Point of view" title="More signal. Less noise." intro="The goal is not to know everything. It is to stay attentive enough to find the right next thing to learn." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="01 / About" title="About" intro="A short introduction to how I learn and build." /></ScrollReveal>
           <div className="about-grid">
             <ScrollReveal delay="delay-1">
-              <p className="about-copy">I like work that sits at the edge of <em>logic and imagination</em> — where a clean system, a thoughtful question, and a little persistence turn into something useful.</p>
-              <p className="about-copy" style={{ fontSize: '1rem', lineHeight: 1.6, marginTop: '2rem', color: 'hsl(var(--muted-foreground))' }}>Alongside code, I keep an eye out for frames worth capturing. Photography has taught me to notice detail, context, and the story hiding in plain sight.</p>
-            </ScrollReveal>
-            <ScrollReveal delay="delay-2">
-              <div className="strengths" data-testid="list-strengths">
-                {['Attention to detail', 'Adaptability', 'Teamwork', 'Problem solving'].map((strength, index) => (
-                  <div className="strength" key={strength} data-testid={`text-strength-${index}`}><span>0{index + 1}</span>{strength}<ArrowUpRight size={15} /></div>
-                ))}
-              </div>
+              <p className="about-copy">I like building useful software with clear logic and a focus on people. I am learning how intelligent systems can solve practical problems, one thoughtful step at a time.</p>
+              <p className="about-copy" style={{ fontSize: '1rem', lineHeight: 1.6, marginTop: '2rem', color: 'hsl(var(--muted-foreground))' }}>Photography also helps me notice detail, context, and the story in everyday things.</p>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
+      <section className="section soft-skills-section" id="soft-skills">
+        <div className="section-inner">
+          <ScrollReveal><SectionHeading kicker="02 / Soft skills" title="Soft skills" intro="The habits I bring into projects, classrooms, and teams." /></ScrollReveal>
+          <ScrollReveal delay="delay-1">
+            <div className="strengths" data-testid="list-strengths">
+              {['Attention to detail', 'Adaptability', 'Teamwork', 'Problem solving', 'Quick learning'].map((strength, index) => (
+                <div className="strength" key={strength} data-testid={`text-strength-${index}`}><span>0{index + 1}</span>{strength}<ArrowUpRight size={15} /></div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       <section className="section dark-section" id="journey">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="02 / The long game" title="Research, then make it real." intro="A few chapters that have shaped the way Nehal learns: by going deep, sharing the room, and building for people." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="03 / Experience" title="Experience" intro="Research, training, and education that continue to shape how I learn." /></ScrollReveal>
           <div className="story-grid">
             <ScrollReveal delay="delay-1">
               <article className="story-card large" data-testid="card-nptel-internship">
                 <div className="story-meta"><span>NPTEL Winter Internship</span><span>Research chapter</span></div>
-                <h3>Augmented reality meets AI across domains.</h3>
-                <p>Selected for the NPTEL Winter Internship at IIT Roorkee under Prof. Rashmi Gaur. The assignment: develop research-based content that looks at how augmented reality and artificial intelligence can move between disciplines.</p>
+                <h3>Research on AR and AI.</h3>
+                <p>Selected for the NPTEL Winter Internship at IIT Roorkee under Prof. Rashmi Gaur. Researched AR and AI applications in healthcare, education, and industrial automation, analyzed 5+ research papers, and presented findings on AI-powered computer vision.</p>
                 <div className="story-shape" />
               </article>
             </ScrollReveal>
             <div className="small-stack">
               <ScrollReveal delay="delay-2">
                 <article className="story-card small" data-testid="card-servicenow-training">
-                  <div className="story-meta"><span>ServiceNow</span><span>Share the room</span></div>
-                  <h3>Make the platform feel possible.</h3>
-                  <p>Part of a training program held for 120 students to help them work toward ServiceNow certifications worth $200.</p>
+                  <div className="story-meta"><span>ServiceNow Trainee</span><span>JECRC University</span></div>
+                  <h3>ServiceNow training.</h3>
+                  <p>Selected as part of a cohort of 120 students. Completed training in platform fundamentals and application development basics.</p>
                   <Users className="story-icon" size={27} />
                 </article>
               </ScrollReveal>
               <ScrollReveal delay="delay-3">
                 <article className="story-card" data-testid="card-learning">
-                  <div className="story-meta"><span>Now building</span><span>Chapter 03</span></div>
-                  <h3>Curiosity is a technical skill.</h3>
-                  <p>Python is the strongest thread right now, with C++, cloud, ServiceNow, and new questions constantly joining the toolkit.</p>
+                  <div className="story-meta"><span>Education</span><span>JECRC University</span></div>
+                  <h3>Computer Science and Engineering.</h3>
+                  <p>B.Tech in Computer Science and Engineering with a current CGPA of 8.71/10.0. Building a strong foundation in Python, C++, DSA, and OOP.</p>
                   <BrainCircuit className="story-icon" size={27} />
                 </article>
               </ScrollReveal>
@@ -256,29 +272,24 @@ function Home() {
 
       <section className="section" id="work">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="03 / Selected build" title="Money, but make it visible." intro="A final-year academic project with a practical brief: make everyday expenses easier to understand before they become a surprise." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="04 / Projects" title="Projects" intro="A final-year academic project focused on making everyday expenses easier to understand." /></ScrollReveal>
           <ScrollReveal delay="delay-1">
-            <article className="project-feature" data-testid="card-master-project">
+            <article className="project-feature project-simple" data-testid="card-master-project">
               <div className="project-info">
                 <div>
                   <div className="project-num">Project 01 · academic build</div>
-                  <h3>Master₹</h3>
-                  <p>An expense tracker designed to help users manage spending with monthly summaries and useful alerts — a small system with a very human job.</p>
-                </div>
-                <div>
-                  <div className="tech-list" aria-label="Project technology stack">
-                    {['HTML', 'CSS', 'JavaScript', 'Python Flask', 'SQLite'].map((tech) => <span className="tech-tag" key={tech}>{tech}</span>)}
-                  </div>
-                  <button className="button button-ghost" style={{ marginTop: '1.5rem', color: 'inherit', borderColor: 'rgba(244,239,230,.5)' }} onClick={() => jumpTo('credentials')} data-testid="button-see-more-work">More of the toolkit <ArrowUpRight size={15} /></button>
+                  <h3>Master₹ — Expense Tracker</h3>
+                  <p>An expense tracker that helps users record spending, view monthly summaries, and receive useful alerts.</p>
                 </div>
               </div>
-              <div className="project-visual" aria-label="Illustrated Master₹ expense dashboard">
-                <div className="dashboard">
-                  <div className="dashboard-top"><span>MASTER₹ / MONTHLY VIEW</span><span className="dashboard-dots"><i /><i /><i /></span></div>
-                  <div className="dash-total"><small>THIS MONTH</small>₹ 18,420</div>
-                  <div className="bars"><i style={{ height: '48%' }} /><i style={{ height: '72%' }} /><i style={{ height: '38%' }} /><i style={{ height: '89%' }} /><i style={{ height: '60%' }} /><i style={{ height: '78%' }} /></div>
-                  <div className="dash-alert">ALERT<br />spending pattern noticed</div>
-                </div>
+              <div className="project-details">
+                <div className="detail-row"><span>Built with</span><strong>HTML · CSS · JavaScript · Flask · SQLite</strong></div>
+                <ol className="project-points">
+                  <li>Designed the frontend for income and expense tracking.</li>
+                  <li>Built login, dashboard, and monthly summary views.</li>
+                  <li>Connected the interface to Flask APIs for dynamic data.</li>
+                  <li>Worked in a team of three, owning frontend development and contributing to testing and documentation.</li>
+                </ol>
               </div>
             </article>
           </ScrollReveal>
@@ -287,7 +298,7 @@ function Home() {
 
       <section className="section" id="credentials">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="04 / Proof of practice" title="Credentials, with character." intro="A gallery of milestones — designed as visual reminders of what each learning loop opened up next." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="05 / Certificates" title="Certificates" intro="A visual record of the certifications and learning milestones completed so far." /></ScrollReveal>
           <div className="cert-grid">
             {certificates.map((certificate, index) => (
               <ScrollReveal key={certificate.name} delay={`delay-${(index % 3) + 1}`}>
@@ -306,17 +317,17 @@ function Home() {
 
       <section className="section" id="initiatives">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="05 / Beyond the screen" title="Build with people in mind." intro="The most valuable projects are not always the ones with a repository. Community is also a place to practice." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="06 / Activities & initiatives" title="Activities & initiatives" intro="Experiences outside the classroom that have helped me communicate, contribute, and work with others." /></ScrollReveal>
           <div className="initiative-grid">
             <ScrollReveal delay="delay-1">
               <article className="initiative" data-testid="card-zarurat">
-                <div><div className="section-kicker">University initiative</div><h3>Zarurat</h3><p>Contributing to an initiative focused on teaching underprivileged students — a reminder that access can be the most important feature.</p></div>
+                <div><div className="section-kicker">University initiative</div><h3>Zarurat</h3><p>Contributing to an initiative that teaches underprivileged students.</p></div>
                 <GraduationCap className="initiative-icon" size={38} strokeWidth={1.5} />
               </article>
             </ScrollReveal>
             <ScrollReveal delay="delay-2">
               <article className="initiative" data-testid="card-makerspace">
-                <div><div className="section-kicker" style={{ color: 'inherit' }}>University club</div><h3>Makerspace</h3><p>Part of a hardware and software club where ideas are allowed to get tactile, messy, and a little more real.</p></div>
+                <div><div className="section-kicker" style={{ color: 'inherit' }}>University club</div><h3>Makerspace</h3><p>Part of a hardware and software club focused on learning by building.</p></div>
                 <Wrench className="initiative-icon" size={38} strokeWidth={1.5} />
               </article>
             </ScrollReveal>
@@ -324,14 +335,20 @@ function Home() {
         </div>
       </section>
 
-      <section className="skill-band" aria-label="Current toolkit">
+      <section className="skill-band" id="skills" aria-label="Programming skills">
         <div className="skill-band-inner">
-          <strong>Current toolkit</strong>
-          <div className="skill-pills">
-            {[
-              { label: 'Python', icon: Code2 }, { label: 'C++', icon: Code2 }, { label: 'GitHub', icon: Github },
-              { label: 'VS Code', icon: Wrench }, { label: 'ServiceNow', icon: Network }, { label: 'Google Cloud', icon: Sparkles },
-            ].map(({ label, icon: Icon }) => <span className="skill-pill" key={label}><Icon size={12} /> {label}</span>)}
+          <div>
+            <div className="section-kicker">07 / Programming skills</div>
+            <strong>Programming skills</strong>
+          </div>
+          <div>
+            <div className="skill-pills">
+              {[
+                { label: 'Python', icon: Code2 }, { label: 'C++', icon: Code2 }, { label: 'GitHub', icon: Github },
+                { label: 'VS Code', icon: Wrench }, { label: 'ServiceNow', icon: Network }, { label: 'Google Cloud', icon: Sparkles },
+              ].map(({ label, icon: Icon }) => <span className="skill-pill" key={label}><Icon size={12} /> {label}</span>)}
+            </div>
+            <p className="learning-note">The goal is not to know everything. It is to stay attentive enough to find the right next thing to learn.</p>
           </div>
         </div>
       </section>
@@ -339,12 +356,12 @@ function Home() {
       <footer className="footer" id="contact">
         <div className="footer-inner">
           <ScrollReveal>
-            <div className="section-kicker">06 / Keep in touch</div>
-            <h2>Let’s build the <span>next question.</span></h2>
+            <div className="section-kicker">08 / Contact</div>
+            <h2>Contact</h2>
             <p className="footer-sub">For opportunities, conversations, and thoughtful problems worth exploring, Nehal is open to connecting.</p>
-            <button className="button button-primary" onClick={() => setModal({ kind: 'resume' })} style={{ marginTop: '1.7rem' }} data-testid="button-footer-resume">Resume is available <Download size={15} /></button>
+            <a className="button button-primary" href="mailto:nehalgoyal890@gmail.com" style={{ marginTop: '1.7rem' }} data-testid="link-footer-email">Email Nehal <Mail size={15} /></a>
           </ScrollReveal>
-          <div className="footer-row"><span>Nehal Goyal · aspiring AI engineer</span><span><Camera size={13} style={{ verticalAlign: 'middle', marginRight: '.35rem' }} /> made with attention to detail</span><a href="#top" data-testid="link-back-to-top">Back to top <ChevronDown size={12} style={{ transform: 'rotate(180deg)', verticalAlign: 'middle' }} /></a></div>
+          <div className="footer-row"><span>Nehal Goyal · aspiring AI engineer</span><span>Jaipur, India</span><a href="#top" data-testid="link-back-to-top">Back to top <ChevronDown size={12} style={{ transform: 'rotate(180deg)', verticalAlign: 'middle' }} /></a></div>
         </div>
       </footer>
 
