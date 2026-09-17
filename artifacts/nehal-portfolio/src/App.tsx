@@ -40,18 +40,20 @@ type Certificate = {
 
 const certificates: Certificate[] = [
   {
-    name: 'ServiceNow CSA',
-    issuer: 'ServiceNow',
-    short: 'CSA',
-    description: 'Certified System Administrator credential covering the ServiceNow platform, configuration, and workflow foundations.',
-    seal: 'PLATFORM\nFOUNDATIONS',
-  },
+  name: 'ServiceNow CSA',
+  issuer: 'ServiceNow',
+  short: 'CSA',
+  description: 'Certified System Administrator credential covering the ServiceNow platform, configuration, and workflow administrations.',
+  seal: 'PLATFORM\nFOUNDATIONS',
+  url: 'https://bit.ly/ServiceNowCSACertificate',
+},
   {
     name: 'ServiceNow CAD',
     issuer: 'ServiceNow',
     short: 'CAD',
-    description: 'Certified Application Developer credential — a marker of continued learning across application design and development.',
+    description: 'Certified Application Developer credential — focused on application development, scripting, workflows, and application design on ServiceNow.',
     seal: 'APP\nBUILDER',
+    url: 'https://bit.ly/ServiceNowCADCertificate' ,
   },
   {
     name: 'Cloud Computing Foundations',
@@ -59,6 +61,7 @@ const certificates: Certificate[] = [
     short: 'GCP',
     description: 'Google Cloud learning credential focused on the fundamentals behind modern cloud computing and infrastructure.',
     seal: 'CLOUD\nORBIT',
+    url: 'https://bit.ly/linkgooglefoundationcertificate',
   },
   {
     name: 'NPTEL Winter Internship',
@@ -66,6 +69,7 @@ const certificates: Certificate[] = [
     short: 'NPTEL',
     description: 'Certificate for research-based content work exploring augmented reality and artificial intelligence across domains.',
     seal: 'RESEARCH\nNOTES',
+    url: 'https://bit.ly/NPTELInternshipcertificate',
   },
 ];
 
@@ -110,9 +114,16 @@ function ResumeModal({ onClose }: { onClose: () => void }) {
         <div className="section-kicker">A small note</div>
         <h2 id="resume-title">Resume</h2>
         <p>For a detailed view of Nehal’s education, experience, projects, and certifications, get in touch by email.</p>
-        <a className="button button-primary" href="mailto:nehalgoyal890@gmail.com?subject=Resume%20request" onClick={onClose} data-testid="link-request-resume">
-          Request resume <Mail size={15} />
-        </a>
+        <a
+  className="button button-primary"
+  href={`${import.meta.env.BASE_URL}Nehal-Goyal-Resume.pdf`}
+  target="_blank"
+  rel="noreferrer"
+  onClick={onClose}
+  data-testid="link-request-resume"
+>
+  View resume <Download size={15} />
+</a>
       </div>
     </div>
   );
