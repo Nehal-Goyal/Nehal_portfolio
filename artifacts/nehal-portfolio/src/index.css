@@ -60,7 +60,7 @@ button { font: inherit; }
 .eyebrow { display: inline-flex; align-items: center; gap: .6rem; color: hsl(var(--muted-foreground)); font: 500 .69rem var(--app-font-mono); text-transform: uppercase; letter-spacing: .08em; }
 .eyebrow::before { content: ''; display: block; width: 32px; height: 2px; background: hsl(var(--primary)); }
 .hero h1 { margin: 1.3rem 0 1.35rem; max-width: 850px; font: 800 clamp(3.8rem, 8vw, 7.4rem)/.88 var(--app-font-display); letter-spacing: -.08em; }
-.hero h1 span { color: hsl(var(--primary)); display: inline-block; transform: translateX(.12em) rotate(-3deg); }
+.hero h1 span {color: hsl(var(--primary));display: inline;transform: none;}
 .hero-lede { max-width: 510px; margin: 0; color: hsl(var(--muted-foreground)); font-size: clamp(1rem, 1.55vw, 1.25rem); line-height: 1.6; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
 .button { border: 0; border-radius: 999px; padding: .9rem 1.25rem; display: inline-flex; align-items: center; justify-content: center; gap: .55rem; text-decoration: none; cursor: pointer; font-size: .82rem; font-weight: 700; letter-spacing: .01em; transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
