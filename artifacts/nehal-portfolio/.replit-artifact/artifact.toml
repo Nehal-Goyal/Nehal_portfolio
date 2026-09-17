@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Nehal Goyal Portfolio"
+description = "A bold personal portfolio for Nehal Goyal, an aspiring AI engineer and final-year computer science student, showcasing projects, research, certifications, skills, and university initiatives."
+version = "1.0.0"
+id = "artifacts/nehal-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25448
+
+[services.development]
+run = "pnpm --filter @workspace/nehal-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/nehal-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/nehal-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25448"
+BASE_PATH = "/"
