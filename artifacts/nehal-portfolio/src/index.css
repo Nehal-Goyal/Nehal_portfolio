@@ -59,7 +59,7 @@ button { font: inherit; }
 .hero-grid { width: min(1240px, 100%); margin: auto; display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; }
 .eyebrow { display: inline-flex; align-items: center; gap: .6rem; color: hsl(var(--muted-foreground)); font: 500 .69rem var(--app-font-mono); text-transform: uppercase; letter-spacing: .08em; }
 .eyebrow::before { content: ''; display: block; width: 32px; height: 2px; background: hsl(var(--primary)); }
-.hero h1 { margin: 1.3rem 0 1.35rem; max-width: 850px; font: 800 clamp(3.8rem, 8vw, 7.4rem)/.88 var(--app-font-display); letter-spacing: -.08em; }
+.hero h1 { margin: 1.3rem 0 1.35rem; max-width: 850px; font: 800 clamp(2.8rem, 6vw, 5.5rem)/.92 var(--app-font-display); letter-spacing: -.08em; }
 .hero h1 span {color: hsl(var(--primary));display: inline;transform: none;}
 .hero-lede { max-width: 510px; margin: 0; color: hsl(var(--muted-foreground)); font-size: clamp(1rem, 1.55vw, 1.25rem); line-height: 1.6; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
@@ -197,7 +197,7 @@ button { font: inherit; }
 @media (max-width: 800px) {
   .nav-links { position: absolute; top: 74px; left: 1rem; right: 1rem; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: .7rem; border: 1px solid color-mix(in srgb, hsl(var(--foreground)) 18%, transparent); background: hsl(var(--card)); box-shadow: 5px 5px 0 hsl(var(--foreground)); }
   .nav-links.open { display: flex; }.nav-links a { padding: .85rem; }.menu-button { display: block; }.nav-resume { display:none; }
-  .hero { min-height: auto; padding-top: 130px; padding-bottom: 100px; }.hero h1 { font-size: clamp(3.7rem, 17vw, 6.2rem); }.scroll-cue { bottom: 1.5rem; }
+  .hero { min-height: auto; padding-top: 130px; padding-bottom: 100px; }.hero h1 {font-size: clamp(2.6rem, 13vw, 4.5rem);}.scroll-cue { bottom: 1.5rem; }
   .section-heading, .about-grid, .story-grid, .project-feature { grid-template-columns: 1fr; }.section-heading { gap: 1.2rem; margin-bottom: 2.5rem; }.section-intro { justify-self: start; }.about-copy { font-size: 1.65rem; }
   .cert-grid, .initiative-grid { grid-template-columns: 1fr; }.cert-card { min-height: 340px; }
   .skill-band-inner { flex-direction: column; align-items: flex-start; }.skill-pills { justify-content: flex-start; }.footer-row { flex-direction: column; align-items: flex-start; margin-top: 5rem; }
