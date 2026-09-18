@@ -208,15 +208,14 @@ function Home() {
               <button className="button button-primary" onClick={() => jumpTo('work')} data-testid="button-explore-work">Explore the work <ArrowDownRight size={17} /></button>
               <button className="button button-ghost" onClick={() => setModal({ kind: 'resume' })} data-testid="button-hero-resume">Resume <Download size={16} /></button>
             </div>
-            <div className="hero-note"><CircleDot size={14} />The goal is not to know everything. It is to stay attentive enough to find the right next thing to learn.</div>
           </ScrollReveal>
         </div>
-        <div className="scroll-cue"><span /> Scroll to see the thinking</div>
+  
       </section>
 
       <div className="ticker" aria-label="Areas of interest">
         <div className="ticker-track">
-          {['Python', 'Artificial intelligence', 'Research', 'Problem solving', 'Photography', 'Learning in public', 'Python', 'Artificial intelligence', 'Research', 'Problem solving', 'Photography', 'Learning in public'].map((item, index) => (
+          {['Python', 'Artificial intelligence','Aspiring AI Engineer','Problem solving', 'Photography', 'Python', 'Artificial intelligence', 'Aspiring AI Engineer', 'Problem solving', 'Photography', 'Python'].map((item, index) => (
             <div className="ticker-item" key={`${item}-${index}`}><b>+</b>{item}</div>
           ))}
         </div>
@@ -224,11 +223,11 @@ function Home() {
 
       <section className="section" id="about">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="01 / About" title="About" intro="A short introduction to how I learn and build." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="01 / About" title="About" intro="" /></ScrollReveal>
           <div className="about-grid">
             <ScrollReveal delay="delay-1">
-              <p className="about-copy">I like building useful software with clear logic and a focus on people. I am learning how intelligent systems can solve practical problems, one thoughtful step at a time.</p>
-              <p className="about-copy" style={{ fontSize: '1rem', lineHeight: 1.6, marginTop: '2rem', color: 'hsl(var(--muted-foreground))' }}>Photography also helps me notice detail, context, and the story in everyday things.</p>
+              <p className="about-copy">I’m a final-year Computer Science student at JECRC University, Jaipur, exploring Python, Artificial Intelligence, and the path towards becoming an AI Engineer. I’m still figuring out where this journey takes me — learning something, getting stuck, trying again, making things work, and then doing it all over again. Basically, curiosity, code, confusion, and a little chaos. I like learning by actually building things and figuring them out along the way. Outside the tech world, I love my creative side too — capturing nature, random things, and those small moments that somehow feel worth keeping.</p>
+        
             </ScrollReveal>
           </div>
         </div>
@@ -236,10 +235,10 @@ function Home() {
 
       <section className="section soft-skills-section" id="soft-skills">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="02 / Soft skills" title="Soft skills" intro="The habits I bring into projects, classrooms, and teams." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="02 / Soft skills" title="Soft skills" intro="" /></ScrollReveal>
           <ScrollReveal delay="delay-1">
             <div className="strengths" data-testid="list-strengths">
-              {['Attention to detail', 'Adaptability', 'Teamwork', 'Problem solving', 'Quick learning'].map((strength, index) => (
+              {['Attention to detail', 'Adaptability', 'Teamwork', 'Problem Solving'].map((strength, index) => (
                 <div className="strength" key={strength} data-testid={`text-strength-${index}`}><span>0{index + 1}</span>{strength}<ArrowUpRight size={15} /></div>
               ))}
             </div>
@@ -249,13 +248,14 @@ function Home() {
 
       <section className="section dark-section" id="journey">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="03 / Experience" title="Experience" intro="Research, training, and education that continue to shape how I learn." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="03 / Experience" title="Experience" intro="" /></ScrollReveal>
           <div className="story-grid">
             <ScrollReveal delay="delay-1">
               <article className="story-card large" data-testid="card-nptel-internship">
-                <div className="story-meta"><span>NPTEL Winter Internship</span><span>Research chapter</span></div>
-                <h3>Research on AR and AI.</h3>
-                <p>Selected for the NPTEL Winter Internship at IIT Roorkee under Prof. Rashmi Gaur. Researched AR and AI applications in healthcare, education, and industrial automation, analyzed 5+ research papers, and presented findings on AI-powered computer vision.</p>
+                <div className="story-meta"><span>NPTEL Winter Internship</span><span>Jan'26 - Feb'26</span></div>
+                <h3>NPTEL Winter Intern.</h3>
+                <p>During my NPTEL Winter Internship at IIT Roorkee, I got the chance to explore the connection between Artificial Intelligence and Augmented Reality under the guidance of Prof. Rashmi Gaur. I looked into how these technologies are being used in healthcare, education, entertainment, e-commerce, while going through 10+ research papers to understand the ideas behind them. It was a good experience of learning through research, reading, and trying to understand how AI is being used beyond just code.
+</p>
                 <div className="story-shape" />
               </article>
             </ScrollReveal>
