@@ -283,7 +283,7 @@ function Home() {
 
       <section className="section" id="work">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="04 / Projects" title="Projects" intro="A final-year academic project focused on making everyday expenses easier to understand." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="04 / Projects" title="Projects" intro="" /></ScrollReveal>
           <ScrollReveal delay="delay-1">
             <article className="project-feature project-simple" data-testid="card-master-project">
               <div className="project-info">
@@ -299,7 +299,7 @@ function Home() {
                   <li>Designed the frontend for income and expense tracking.</li>
                   <li>Built login, dashboard, and monthly summary views.</li>
                   <li>Connected the interface to Flask APIs for dynamic data.</li>
-                  <li>Worked in a team of three, owning frontend development and contributing to testing and documentation.</li>
+                  <li></li>
                 </ol>
               </div>
             </article>
@@ -309,7 +309,7 @@ function Home() {
 
       <section className="section" id="credentials">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="05 / Certificates" title="Certificates" intro="A visual record of the certifications and learning milestones completed so far." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="05 / Certificates" title="Certificates" intro="" /></ScrollReveal>
           <div className="cert-grid">
             {certificates.map((certificate, index) => (
               <ScrollReveal key={certificate.name} delay={`delay-${(index % 3) + 1}`}>
@@ -328,7 +328,7 @@ function Home() {
 
       <section className="section" id="initiatives">
         <div className="section-inner">
-          <ScrollReveal><SectionHeading kicker="06 / Activities & initiatives" title="Activities & initiatives" intro="Experiences outside the classroom that have helped me communicate, contribute, and work with others." /></ScrollReveal>
+          <ScrollReveal><SectionHeading kicker="06 / Activities & initiatives" title="Activities & initiatives" intro="" /></ScrollReveal>
           <div className="initiative-grid">
             <ScrollReveal delay="delay-1">
               <article className="initiative" data-testid="card-zarurat">
@@ -369,10 +369,10 @@ function Home() {
           <ScrollReveal>
             <div className="section-kicker">08 / Contact</div>
             <h2>Contact</h2>
-            <p className="footer-sub">For opportunities, conversations, and thoughtful problems worth exploring, Nehal is open to connecting.</p>
-            <a className="button button-primary" href="mailto:nehalgoyal890@gmail.com" style={{ marginTop: '1.7rem' }} data-testid="link-footer-email">Email Nehal <Mail size={15} /></a>
+            <p className="footer-sub">For opportunities, conversations, and thoughtful problems worth exploring.</p>
+            <a className="button button-primary" href="mailto:nehalgoyal890@gmail.com" style={{ marginTop: '1.7rem' }} data-testid="link-footer-email">Email <Mail size={15} /></a>
           </ScrollReveal>
-          <div className="footer-row"><span>Nehal Goyal · aspiring AI engineer</span><span>Jaipur, India</span><a href="#top" data-testid="link-back-to-top">Back to top <ChevronDown size={12} style={{ transform: 'rotate(180deg)', verticalAlign: 'middle' }} /></a></div>
+          <div className="footer-row"><span>Nehal Goyal · aspiring AI engineer</span><span>Jaipur, Rajasthan, India</span><a href="#top" data-testid="link-back-to-top">Back to top <ChevronDown size={12} style={{ transform: 'rotate(180deg)', verticalAlign: 'middle' }} /></a></div>
         </div>
       </footer>
 
